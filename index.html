@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap" rel="stylesheet">
+    <title>Imersão Dev - Aula 08</title>
+    <style>
+        body {
+    font-family: 'Roboto Mono', monospace;
+    min-height: 854px;
+ 
+    background-image: url("https://i.pinimg.com/originals/e9/4e/9c/e94e9c7d3cdbed1b15d123c311d6fad6.jpg");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    padding-bottom: 20vh;
+    font-family: 'New Tegomin', serif;
+}
+a{
+            font-size: 20px;
+            text-align:center ;
+            font-family: 'New Tegomin', serif;
+            animation-duration: 2s;
+            animation-name:brilho;
+            animation-iteration-count: infinite;
+            text-decoration: none;
+        }
+        img{
+            width: 20px;
+            height: 20px;
+        }
+.hahaha{
+    
+    text-align: center;
+    color: #3f3;
+    animation-duration: 8s;
+    animation-name:cor_fonte;
+    animation-iteration-count: infinite; 
+}
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+.page-title {
+    color: #ffffff;
+    margin: 5px 0;
+}
+button{
+  background: rgb(252, 235, 0);
+  color: black;
+}
+button, .button-jogar {
+    padding: .8rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+}
+
+h2 {
+    color: white;
+}
+
+#carta-jogador, #carta-maquina {
+    width: 360px;
+    height: 500px;
+    overflow: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+    background-size: 350px 300px;
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+    background-position-y: 10px;
+    border-radius: 33px;
+}
+
+#carta-jogador h3 {
+    text-align: center;
+}
+
+.carta-imagem {
+    border: 1px solid black;
+    height: 100px;
+    margin: 10px;
+}
+
+.carta-imagem img {
+    width: 100%;
+    height: 100%;
+}
+
+.carta-status {
+    height: 160px;
+    margin: 2rem;
+    color: white;
+    z-index: 2;
+}
+
+.carta-status input {
+    margin: 20px 10px;
+}
+
+.resultado-final {
+    color: white;
+    font-size: 2rem;
+    text-transform: uppercase;
+    font-weigth: bolder;
+    padding: 1rem;
+    border: 2px solid black;
+    background-color: black;
+}
+
+.--spacing {
+    margin-left: 2.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.carta-subtitle {
+    z-index: 2;
+    position: absolute;
+    top: 16px;
+    left: 37px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+#cartas {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.carta-status p {
+    margin-bottom: 2rem;
+}
+@keyframes cor_fonte{
+            0, 100%{color: #0ff}
+            25%{color: #f0f}
+            50%{color:#06f}
+            75%{color:#fff}
+        }
+        @keyframes brilho{
+            50%{text-shadow: 0px 0px 9px}
+            
+        }
+    </style>
+</head>
+<body>
+    <section class="hahaha">
+        <p>Kenji Rocha Nakajima</p>
+        <a href="https://github.com/kenjirn">
+            <img src="https://www.flaticon.com/svg/vstatic/svg/214/214513.svg?token=exp=1618071820~hmac=b036d6a575295a82d135de3f7acb7d49"> < GitHub >
+          </a>
+      <a href="https://www.instagram.com/kenjirn/">
+        <img src="https://www.flaticon.com/svg/vstatic/svg/179/179328.svg?token=exp=1618072543~hmac=8101df888522b9a28e070f5f9311dc27"> < Instagram >
+      </a>
+      <a href="https://www.linkedin.com/in/kenjinakajima/">
+        <img src="https://www.flaticon.com/svg/vstatic/svg/145/145807.svg?token=exp=1618072621~hmac=b99187139e3bd3af1118beee713677f0"> < Linkedin >
+      </a>
+
+
+       
+    </section>
+    <div class="container">
+        <h1 class="page-title">Super Trunfo: Lord of the Ring</h1>
+        <button onclick="sortearCarta()" id="btnSortear">Sortear carta</button>
+        <form id="form">
+     
+            <div class="wrapper">
+                <div>
+                    <div id="carta-jogador">
+                        <img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png"
+                            style=" width: inherit; height: inherit; position: absolute;">
+                        <h3></h3>
+                    </div>
+                </div>
+                <div>
+                    <div id="carta-maquina" class="carta"><img
+                            src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent-ajustado.png"
+                            style=" width: inherit; height: inherit; position: absolute;"></div>
+                </div>
+            </div>
+            <button class="button-jogar" type="button" id="btnJogar" onclick="jogar()" disabled="false">Jogar</button>
+            <div id="resultado"></div>
+        </form>
+    </div>
+
+    <script>
+        var cartaPaulo = {
+    nome: "King Aragorn",
+    imagem: "https://i.pinimg.com/originals/a8/0f/88/a80f882cb198d40b588e2d487caec418.jpg",
+    atributos: {
+        ataque: 80,
+        defesa: 60,
+        magia: 90
+    }
+}
+
+var cartaRafa = {
+    nome: "Gandalf",           
+    imagem:"https://i.pinimg.com/originals/63/1d/01/631d01ff34e74f0589def839e8c92e44.jpg",
+    atributos: {
+        ataque: 70,
+        defesa: 65,
+        magia: 85
+    }
+}
+
+var cartaGui = {
+    nome: "Melkor",
+    imagem: "https://i.pinimg.com/originals/e8/4b/81/e84b81b7ae7871b2306bbf52113965f8.jpg",
+    atributos: {
+        ataque: 88,
+        defesa: 62,
+        magia: 90
+    }
+}
+
+var cartaPaulo = {
+    nome: "Rohirrim",
+    imagem: "https://i.pinimg.com/564x/25/10/cb/2510cbef1c8d84ff863a188b1c8d66b5.jpg",
+    atributos: {
+        ataque: 80,
+        defesa: 60,
+        magia: 90
+    }
+}
+var cartaPaulo = {
+    nome: "Saruman, the White",
+    imagem: "https://i.pinimg.com/564x/17/51/28/175128f61f4ef6d875a61fb679e4228c.jpg",
+    atributos: {
+        ataque: 30,
+        defesa: 40,
+        magia: 90
+    }
+}
+var cartaPaulo = {
+    nome: "Legolas GreenLeaf",
+    imagem: "https://i.pinimg.com/564x/b7/8c/68/b78c687d376c965a0b1baf8436acb0ef.jpg",
+    atributos: {
+        ataque: 60,
+        defesa: 45,
+        agil: 95,
+        dex: 95,
+        magia: 90
+    }
+}
+var cartaPaulo = {
+    nome: "Elrond",
+    imagem: "https://i.pinimg.com/564x/3d/d6/56/3dd65673152e487dacf76758fc438ae1.jpg",
+    atributos: {
+        ataque: 70,
+        defesa: 60,
+        agil: 75,
+        dex: 75,
+        magia: 60
+    }
+}
+var cartaPaulo = {
+    nome: "Hobbits",
+    imagem: "https://i.pinimg.com/564x/2a/4e/8f/2a4e8ff7a0754eb81c9644ee712b36dd.jpg",
+    atributos: {
+        ataque: 35,
+        defesa: 30,
+        agil: 70,
+        dex: 50,
+        magia: 10
+    }
+}
+
+var cartaPaulo = {
+    nome: "Gollum",
+    imagem: "https://i.pinimg.com/564x/5f/30/06/5f30061840fda1ab34b8f74e4b3d856b.jpg",
+    atributos: {
+        ataque: 55,
+        defesa: 30,
+        agil: 80,
+        dex: 50,
+        magia: 10
+    }
+}
+
+var cartaPaulo = {
+    nome: "Boromir",
+    imagem: "https://i.pinimg.com/564x/38/93/36/3893369daba66bfac7b81185c261527b.jpg",
+    atributos: {
+        ataque: 90 ,
+        defesa: 85,
+        agil: 80,
+        dex: 70,
+        magia: 10
+    }
+}
+
+
+var cartaMaquina
+var cartaJogador
+var cartas = [cartaPaulo, cartaRafa, cartaGui]
+// 0          1           2
+
+function sortearCarta() {
+    var numeroCartaMaquina = parseInt(Math.random() * 3)
+    cartaMaquina = cartas[numeroCartaMaquina]
+
+    var numeroCartaJogador = parseInt(Math.random() * 3)
+    while (numeroCartaJogador == numeroCartaMaquina) {
+        numeroCartaJogador = parseInt(Math.random() * 3)
+    }
+    cartaJogador = cartas[numeroCartaJogador]
+
+
+    document.getElementById('btnSortear').disabled = true
+    document.getElementById('btnJogar').disabled = false
+  
+    exibeCartaJogador()
+
+}
+
+function exibeCartaJogador(){
+  var divCartaJogador = document.getElementById("carta-jogador")
+  var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
+  divCartaJogador.style.backgroundImage=`url(${cartaJogador.imagem})`
+  var nome = `<p class="carta-subtitle">${cartaJogador.nome}</p>`
+  var opcoesTexto = ""
+  
+  for (var atributo in cartaJogador.atributos) {
+        opcoesTexto += "<input type='radio' name='atributo' value='" + atributo + "'>" + atributo + " " + cartaJogador.atributos[atributo] + "<br>"
+    }
+  var html = "<div id='opcoes' class='carta-status'>"
+  divCartaJogador.innerHTML = moldura+nome+html+opcoesTexto+'</div>'
+}
+function obtemAtributoSelecionado() {
+    var radioAtributo = document.getElementsByName('atributo')
+    for (var i = 0; i < radioAtributo.length; i++) {
+        if (radioAtributo[i].checked) {
+            return radioAtributo[i].value
+        }
+    }
+}
+
+function jogar() {
+    var divResultado = document.getElementById("resultado")
+    var atributoSelecionado = obtemAtributoSelecionado()
+
+    if (cartaJogador.atributos[atributoSelecionado] > cartaMaquina.atributos[atributoSelecionado]) {
+      htmlResultado = '<p class="resultado-final">Venceu</p>'  
+      
+
+    } else if (cartaJogador.atributos[atributoSelecionado] < cartaMaquina.atributos[atributoSelecionado]) {
+     htmlResultado = '<p class="resultado-final">Perdeu</p>'  
+    } else {
+     htmlResultado = '<p class="resultado-final">Empatou</p>'  
+    }
+  divResultado.innerHTML = htmlResultado
+  exibeCartaMaquina()
+}
+
+function exibeCartaMaquina(){
+    var divCartaMaquina = document.getElementById("carta-maquina")
+    var moldura = '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
+  divCartaMaquina.style.backgroundImage=`url(${cartaMaquina.imagem})`
+  var nome = `<p class="carta-subtitle">${cartaMaquina.nome}</p>`
+  var opcoesTexto = ""
+  
+  for (var atributo in cartaMaquina.atributos) {
+        opcoesTexto += "<p type='text' name='atributo' value='" + atributo + "'>" + atributo + " " + cartaMaquina.atributos[atributo] + "</p>"
+    }
+
+
+  var html = "<div id='opcoes' class='carta-status'>"
+  divCartaMaquina.innerHTML = moldura+nome+html+opcoesTexto+'</div>'
+}
+    </script>
+</body>
+</html>
